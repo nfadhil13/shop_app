@@ -1,16 +1,35 @@
-# shop_app
+<h3 align="center">Shop App</h3>
+<h6 align="center"> Mohamad Naufal Fadhil </h6>
 
-A new Flutter project.
+## 📝 Table of Contents
+- [Usage](#usage)
+- [Built Using](#built_using)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## 🧐 About <a name = "about"></a>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Bahasa Indonesia
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Merupakan hasil ekplorasi mandiri teknologi Flutter. Kode ini juga merupakan bagian dari <a href="https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/">Flutter & Dart - The Complete Guide [2021 Edition]</a> yang dibuat oleh Maximilian Schwarzmüller.
+
+Pada Bagian ini pembahasan berfokus pada :
+- State Management Menggunakan [Provider](https://pub.dev/packages/provider)
+- Memanage Input user menggunakan widget [Form](https://api.flutter.dev/flutter/widgets/Form-class.html) 
+- Melakukan Http Call dengan library [Http](https://pub.dev/packages/http)
+
+
+### English
+
+This is code written as my self exploration result in Flutter. This is part of <a href="https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/">Flutter & Dart - The Complete Guide [2021 Edition]</a> by Maximilian Schwarzmüller
+
+Topics that covered by this repo are :
+- State Management with [Provider](https://pub.dev/packages/provider)
+- Managin user input with [Form](https://api.flutter.dev/flutter/widgets/Form-class.html) 
+- Doing http call with [Http](https://pub.dev/packages/http)
+
+
+## ⛏️ Built Using <a name = "built_using"></a>
+
+- [Flutter](https://www.flutter.com/) 
+
