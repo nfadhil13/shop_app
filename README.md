@@ -20,8 +20,7 @@ Pada Bagian ini pembahasan berfokus pada :
 
 
 ### English
-
-This is code written as my self exploration result in Flutter. This is part of <a href="https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/">Flutter & Dart - The Complete Guide [2021 Edition]</a> by Maximilian Schwarzmüller
+This repo is written as the result of my self exploration with flutter. This is part of <a href="https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/">Flutter & Dart - The Complete Guide [2021 Edition]</a> by Maximilian Schwarzmüller
 
 Topics that covered by this repo are :
 - State Management with [Provider](https://pub.dev/packages/provider)
