@@ -7,6 +7,8 @@ import 'package:shop_app/screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
 
+
+
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context) ;
@@ -35,7 +37,20 @@ class ProductItem extends StatelessWidget {
           ),
           leading: IconButton(
             icon: Icon(product.isFavorite ? Icons.favorite : Icons.favorite_border_outlined, color: Theme.of(context).primaryColor),
-            onPressed: productProvider.toggleFavorite,
+            onPressed: () async {
+              try{
+                await productProvider.toggleFavorite();
+              }catch(error){
+                print("Error lohh");
+                print(error);
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: Duration(milliseconds: 500),
+                      content: Text("FailEd to update favorite"),
+                    )
+                );
+              }
+            },
           ),
           trailing: IconButton(
             icon: Icon(Icons.shopping_cart),

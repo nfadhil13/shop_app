@@ -29,6 +29,20 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
 
   var _showFavorite = false;
 
+  var _isLoading = false;
+
+
+  @override
+  void initState() {
+    fetchProductData();
+    super.initState();
+  }
+
+  void fetchProductData() async{
+    _isLoading = true;
+    Provider.of<ProductListProvider>(context, listen: false).fetchAndSetProduct();
+    _isLoading = false;
+  }
 
   @override
   Widget build(BuildContext context)  {
@@ -66,7 +80,17 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
         ],
       ),
       drawer: AppDrawer(),
-      body: ProductGrid(_showFavorite),
+      body: Stack(children : [
+          RefreshIndicator(
+              onRefresh: () async {
+                fetchProductData();
+              },
+              child: ProductGrid(_showFavorite)
+          ),
+          if(_isLoading) Center(
+            child: CircularProgressIndicator(),
+          )
+      ]),
     );
   }
 }

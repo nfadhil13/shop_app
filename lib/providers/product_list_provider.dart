@@ -1,43 +1,13 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:shop_app/providers/product_provider.dart';
 
 class ProductListProvider with ChangeNotifier {
 
-  List<ProductProvider> _products = [
-    ProductProvider(
-      id: 'p1',
-      title: 'Red Shirt',
-      description: 'A red shirt - it is pretty red!',
-      price: 29.99,
-      imageUrl:
-      'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
-    ),
-    ProductProvider(
-      id: 'p2',
-      title: 'Trousers',
-      description: 'A nice pair of trousers.',
-      price: 59.99,
-      imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
-    ),
-    ProductProvider(
-      id: 'p3',
-      title: 'Yellow Scarf',
-      description: 'Warm and cozy - exactly what you need for the winter.',
-      price: 19.99,
-      imageUrl:
-      'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
-    ),
-    ProductProvider(
-      id: 'p4',
-      title: 'A Pan',
-      description: 'Prepare any meal you want.',
-      price: 49.99,
-      imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
-    ),
-  ];
+  List<ProductProvider> _products = [];
 
   List<ProductProvider> get products {
     return [..._products];
@@ -52,31 +22,88 @@ class ProductListProvider with ChangeNotifier {
     return _products.where((element) => element.isFavorite).toList();
   }
 
+  Future<void> fetchAndSetProduct() async{
+    try{
+      print("Fetchin data");
+      final endPoint = Uri.parse("https://shop-app-f42ef-default-rtdb.asia-southeast1.firebasedatabase.app/products.json");
+      final result = await http.get(endPoint);
+      final decodedResult = jsonDecode(result.body) as Map<String, dynamic>;
+      _products.clear();
+      decodedResult.forEach((key, value) {
+        _products.add(ProductProvider.fromJson(value as Map<String, dynamic>, key));
+      });
+      print(_products);
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
 
-  ProductProvider addProduct(ProductProvider newProduct) {
-    var _newProduct = ProductProvider(
-        id: DateTime.now().toIso8601String(),
-        title: newProduct.title,
-        description: newProduct.description,
-        price: newProduct.price,
-        imageUrl: newProduct.imageUrl
-    );
-    _products.insert(0, _newProduct);
-    notifyListeners();
-    return _newProduct;
+
+  Future<ProductProvider> addProduct(ProductProvider newProduct) async {
+    try{
+      final endPoint = Uri.parse("https://shop-app-f42ef-default-rtdb.asia-southeast1.firebasedatabase.app/products.json");
+      final result = await http.post(endPoint, body: json.encode({
+        "title": newProduct.title,
+        "description": newProduct.description,
+        "price": newProduct.price,
+        "imageUrl": newProduct.imageUrl,
+        "isFavorite": false
+      }));
+      var _newProduct = ProductProvider(
+          id: json.decode(result.body)["name"],
+          title: newProduct.title,
+          description: newProduct.description,
+          price: newProduct.price,
+          imageUrl: newProduct.imageUrl
+      );
+      _products.insert(0, _newProduct);
+      notifyListeners();
+      return _newProduct;
+    }catch(error){
+      print(error);
+      throw error;
+    }
   }
 
   
-  ProductProvider updateProduct(ProductProvider newProduct) {
-    final oldIndex = _products.indexWhere((element) => element.id == newProduct.id);
-    _products[oldIndex] = newProduct;
-    notifyListeners();
-    return newProduct;
+  Future<ProductProvider> updateProduct(ProductProvider updatedProduct) async{
+    try{
+      final oldIndex = _products.indexWhere((element) => element.id == updatedProduct.id);
+      if(oldIndex < 0) throw Exception("Invalid product id");
+      final endPoint = Uri.parse("https://shop-app-f42ef-default-rtdb.asia-southeast1.firebasedatabase.app/products/${updatedProduct.id}.json");
+      final result = await http.patch(endPoint, body: updatedProduct.toJson());
+      if(result.statusCode == 200){
+        _products[oldIndex] = updatedProduct;
+        notifyListeners();
+        return updatedProduct;
+      }else{
+        throw Exception("Failed to update data");
+      }
+    }catch(error) {
+      print(error);
+       throw error;
+    }
   }
 
-  void removeItem(String productId) {
-    _products.removeWhere((element) => element.id == productId);
-    notifyListeners();
+  Future<void> removeItem(String productId) async{
+    try{
+      //final oldIndex = _products.indexWhere((element) => element.id == updatedProduct.id);
+      final endPoint = Uri.parse("https://shop-app-f42ef-default-rtdb.asia-southeast1.firebasedatabase.app/products/$productId.json");
+      final result = await http.delete(endPoint);
+      print(result.body);
+      if(result.statusCode == 200){
+        _products.removeWhere((element) => element.id == productId);
+        notifyListeners();
+      }else{
+        throw Exception("Failed to delete");
+      }
+    }catch(error) {
+      print(error);
+      throw error;
+    }
+
   }
 
 
