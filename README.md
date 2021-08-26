@@ -1,7 +1,10 @@
 <h3 align="center">Shop App</h3>
 <h6 align="center"> Mohamad Naufal Fadhil </h6>
 
+## 🧐 Preview <a name = "preview"></a>
+
 ## 📝 Table of Contents
+- [Preview](#preview)
 - [Usage](#usage)
 - [Built Using](#built_using)
 
