@@ -3,9 +3,9 @@
 <h6 align="center"> Mohamad Naufal Fadhil </h6>
 <p align="center">
 <img src="/preview/home_screen_preview.gif" width="20%"/>
-<img width="10%"/>
+<img width="5%"/>
 <img src="/preview/order_screen_preview.gif" width="20%"/>
-<img width="10%"/>
+<img width="5%"/>
 <img src="/preview/add_preview.gif" width="20%"/>
 </p>
 
