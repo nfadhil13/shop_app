@@ -1,7 +1,13 @@
+<a name = "preview"></a>
 <h3 align="center">Shop App</h3>
 <h6 align="center"> Mohamad Naufal Fadhil </h6>
-
-<a name = "preview"></a>
+<p align="center">
+<img src="/preview/home_screen_preview.gif" width="20%"/>
+<img width="10%"/>
+<img src="/preview/order_screen_preview.gif" width="20%"/>
+<img width="10%"/>
+<img src="/preview/add_preview.gif" width="20%"/>
+</p>
 
 ## 📝 Table of Contents
 - [Preview](#preview)
